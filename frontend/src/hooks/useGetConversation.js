@@ -11,7 +11,7 @@ const useGetConversation = ()=>{
 
             setLoading(true)
            try {
-             const res  = await fetch("http://localhost:5000/api/user",{credentials: "include"})
+             const res  = await fetch("/api/user")
              const data = await res.json()
      
              if(data.error){
