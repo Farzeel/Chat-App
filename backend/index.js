@@ -32,9 +32,7 @@ connectDb().then(()=>{
 })
 app.use(express.static(path.join(__dirname, "/frontend/dist")));
 
-app.get("*", (req, res) => {
-	res.sendFile(path.join(__dirname, "frontend", "dist", "index.html"));
-});
+
 
 // import ROUTES
 import authRoute from "./src/routes/auth.routes.js"
@@ -45,4 +43,7 @@ import userRoute from "./src/routes/user.routes.js"
 app.use("/api/auth" , authRoute)
 app.use("/api/message" , messageRoute)
 app.use("/api/user" , userRoute)
+app.get("*", (req, res) => {
+	res.sendFile(path.join(__dirname, "frontend", "dist", "index.html"));
+});
 
