@@ -2,9 +2,9 @@ import  express  from "express";
 import dotenv from "dotenv"
 import cookieParser from "cookie-parser";
 import connectDb from "./src/db/connectDb.js";
-import cors from "cors"
 import {app, server} from "./src/socket/socket.js";
 import path from "path"
+import { job } from "./cron.js";
 
 dotenv.config()
 
@@ -17,6 +17,8 @@ const __dirname = path.resolve();
 
 app.use(express.json())
 app.use(cookieParser())
+
+job.start()
 
 connectDb().then(()=>{
     server.listen(port, ()=>{
@@ -34,6 +36,7 @@ app.use(express.static(path.join(__dirname, "/frontend/dist")));
 import authRoute from "./src/routes/auth.routes.js"
 import messageRoute from "./src/routes/message.routes.js"
 import userRoute from "./src/routes/user.routes.js"
+
 
 
 app.use("/api/auth" , authRoute)
