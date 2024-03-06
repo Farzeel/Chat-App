@@ -3,12 +3,13 @@ import dotenv from "dotenv"
 import cookieParser from "cookie-parser";
 import connectDb from "./src/db/connectDb.js";
 import cors from "cors"
+import {app, server} from "./src/socket/socket.js";
 
 dotenv.config()
 
 const port  = process.env.PORT || 8000
 
-const app = express()
+
 app.use(cors({
     origin:["http://localhost:3000"],
     credentials:true
@@ -19,7 +20,7 @@ app.use(express.json())
 app.use(cookieParser())
 
 connectDb().then(()=>{
-    app.listen(port, ()=>{
+    server.listen(port, ()=>{
         console.log("App is listening on port ", port)
     })
 })
@@ -32,6 +33,7 @@ connectDb().then(()=>{
 import authRoute from "./src/routes/auth.routes.js"
 import messageRoute from "./src/routes/message.routes.js"
 import userRoute from "./src/routes/user.routes.js"
+
 
 app.use("/api/auth" , authRoute)
 app.use("/api/message" , messageRoute)
